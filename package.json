@@ -1,0 +1,25 @@
+{
+  "name": "cli",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm -r run typecheck && pnpm -r run build",
+    "cleanup": "dy cleanup",
+    "cm": "git add . && dy git-commit",
+    "dev": "pnpm -r run build",
+    "lint": "eslint . --fix",
+    "publish-pkg": "pnpm -r publish --access public --no-git-checks",
+    "release": "dy release && pnpm build && pnpm publish-pkg",
+    "typecheck": "pnpm -r run typecheck"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.26",
+    "typescript": "~5.4.0",
+    "unbuild": "^2.0.0"
+  }
+}
