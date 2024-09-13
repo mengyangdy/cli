@@ -1,6 +1,6 @@
 {
   "name": "@dylanjs/utils",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -11,14 +11,21 @@
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
-    "klona": "2.0.6",
-    "localforage": "1.10.0"
-  },"devDependencies": {
+    "axios": "^1.7.7",
+    "axios-retry": "^4.5.0",
+    "nanoid": "^5.0.7",
+    "qs": "^6.13.0"
+  },
+  "devDependencies": {
     "@types/crypto-js": "4.2.2"
   }
 }

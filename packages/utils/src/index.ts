@@ -1,4 +1,3 @@
-export * from './klona'
-export * from './storage'
+export * from './deepClone'
 export * from './nanoid'
-export * from './crypto'
+export * from 'axios'
