@@ -2,6 +2,7 @@ import type {RequestOption} from "./types";
 import {CreateAxiosDefaults} from "axios";
 import { isHttpSuccess } from './shared';
 import { stringify } from 'qs';
+import {IAxiosRetryConfig} from "axios-retry";
 
 export function createDefaultOptions<ResponseData = any>(options?: Partial<RequestOption<ResponseData>>) {
   const opts: RequestOption<ResponseData> = {
@@ -16,6 +17,14 @@ export function createDefaultOptions<ResponseData = any>(options?: Partial<Reque
   Object.assign(opts, options)
 
   return opts
+}
+
+export function createRetryOptions(config?:Partial<CreateAxiosDefaults>){
+  const retryConfig:IAxiosRetryConfig={
+    retries:0
+  }
+  Object.assign(retryConfig,config)
+  return retryConfig
 }
 
 
