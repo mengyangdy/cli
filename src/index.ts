@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 import cac from "cac";
-import { version } from "../../../package.json";
+import { version } from "../package.json";
 import { loadCliOptions } from "./config";
-import { gitCommit, gitCommitVerify, release } from "./command";
+import { cleanup, gitCommit, gitCommitVerify, release,updatePkg } from "./command";
 import type { Lang } from "./locales";
 import type { CliOption } from './types'
 
-type Command = "git-commit" | "git-commit-verify" | "release";
+type Command = "git-commit" | "git-commit-verify" | "release" | "cleanup" | 'update-pkg';
 
 type CommandAction<A extends object> = (args?: A) => Promise<void> | void;
 
@@ -17,22 +17,22 @@ type CommandWithAction<A extends object = object> = Record<
 >;
 
 interface CommandArg {
-  /** Execute additional command after bumping and before git commit. Defaults to 'npx soy changelog' */
+  /** 在版本提升后和 git 提交前执行额外的命令，默认为 '~~npx dy changelog~~' */
   execute?: string;
-  /** Indicates whether to push the git commit and tag. Defaults to true */
+  /** 表示是否推送 git 提交和标签，默认为 true */
   push?: boolean;
-  /** Generate changelog by total tags */
+  /** 通过总标签生成变更日志 */
   total?: boolean;
   /**
-   * The glob pattern of dirs to cleanup
+   * 要清理的目录的全局模式
    *
-   * If not set, it will use the default value
+   * 如果未设置，则使用默认值
    *
-   * Multiple values use "," to separate them
+   * 多个值使用 "," 分隔
    */
   cleanupDir?: string;
   /**
-   * display lang of cli
+   * 显示 git commit CLI 的语言
    *
    * @default 'en-us'
    */
@@ -72,6 +72,18 @@ async function setupCli() {
       action: async (args) => {
         await gitCommitVerify(args?.lang, cliOptions.gitCommitVerifyIgnores);
       },
+    },
+    cleanup:{
+      desc:'delete dirs：node_modules, dist, pnpm-lock.yaml',
+      action:async ()=>{
+        await cleanup(cliOptions.cleanupDirs)
+      }
+    },
+    'update-pkg':{
+      desc:'update package.json dependencies versions',
+      action:async ()=>{
+        await updatePkg(cliOptions.ncuCommandArgs)
+      }
     },
     release: {
       desc: "release: update version, generate changelog, commit code",

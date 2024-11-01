@@ -3,7 +3,7 @@ import { versionBump } from 'bumpp';
 export async function release(execute = 'npx soy changelog', push = true) {
   await versionBump({
     files: ['**/package.json', '!**/node_modules'],
-    execute,
+    // execute,
     all: true,
     tag: true,
     commit: 'chore(projects): release v%s',

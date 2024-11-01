@@ -10,8 +10,8 @@ export const locales = {
       description: `请输入描述信息（${yellow("!")}开头表示破坏性改动`,
     },
     gitCommitTypes: [
-      ["feat", "新功能"],
-      ["fix", "修复Bug"],
+      [":sparkles: feat", "新功能"],
+      [":bug: fix", "修复Bug"],
       ["docs", "只涉及文档更新"],
       ["style", "修改代码风格，不影响代码含义的变更"],
       ["refactor", "代码重构，既不修复 bug 也不添加功能的代码变更"],
@@ -24,6 +24,7 @@ export const locales = {
       ["revert", "还原先前的提交"],
     ] as [string, string][],
     gitCommitScopes: [
+      ["", "空"],
       ["projects", "项目"],
       ["packages", "包"],
       ["components", "组件"],
@@ -67,6 +68,7 @@ export const locales = {
       ["revert", "Reverts a previous commit"],
     ] as [string, string][],
     gitCommitScopes: [
+      ["", "empty"],
       ["projects", "project"],
       ["packages", "packages"],
       ["components", "components"],

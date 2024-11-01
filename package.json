@@ -1,26 +1,51 @@
 {
-  "name": "cli",
-  "type": "module",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "name": "@dylanjs/cli",
+  "version": "0.1.1",
+  "description": "DylanJS's 的命令行工具",
+  "author": "Dylan <my466879168@gmail.com> (https://github.com/mengyang94982/)",
+  "license": "MIT",
+  "bin": {
+    "dylan": "dist/index.cjs",
+    "dy": "dist/index.cjs"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "pnpm -r run typecheck && pnpm -r run build",
     "cleanup": "dy cleanup",
     "cm": "git add . && dy git-commit",
-    "dev": "pnpm -r run build",
     "lint": "eslint . --fix",
-    "publish-pkg": "pnpm -r publish --access public --no-git-checks",
+    "publish": "npm publish --access public",
     "release": "dy release && pnpm build && pnpm publish-pkg",
-    "typecheck": "pnpm -r run typecheck"
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "bumpp": "^9.4.0",
+    "c12": "^1.10.0",
+    "cac": "^6.7.14",
+    "enquirer": "2.4.1",
+    "execa": "^8.0.1",
+    "kolorist": "^1.8.0",
+    "rimraf": "^6.0.1"
+  },
   "devDependencies": {
+    "@dylanjs/cli": "^0.1.0",
     "@types/node": "^20.11.26",
+    "npm-check-updates": "^17.1.9",
     "typescript": "~5.6.2",
-    "unbuild": "^2.0.0",
-    "@dylanjs/cli": "workspace:*"
+    "unbuild": "^2.0.0"
   }
 }
