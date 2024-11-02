@@ -51,7 +51,7 @@ export async function gitCommit(lang: Lang = "en-us") {
 
   const description = result.description.replace(/^!/, "").trim();
 
-  const commitMsg = `${result.types}${result.scopes?(result.scopes):''}${breaking}: ${description}`;
+  const commitMsg = `${result.types}(${result.scopes})${breaking}: ${description}`;
 
   await execCommand("git", ["commit", "-m", commitMsg], { stdio: "inherit" });
 }
@@ -65,7 +65,7 @@ export async function gitCommitVerify(
   const commitMsg = readFileSync(gitMsgPath, "utf8").trim();
   if (ignores.some((regExp) => regExp.test(commitMsg))) return;
   const REG_EXP =
-    /:(?<prefix>[a-z]+)?: (?<type>[a-z]+)(?:\((?<scope>.+)\))?(?<breaking>!)?: (?<description>.+)/i;
+    /(?<type>[a-z]+)(?:\((?<scope>.+)\))?(?<breaking>!)?: (?<description>.+)/i;
 
   if (!REG_EXP.test(commitMsg)) {
     const errorMsg = locales[lang].gitCommitVerify;

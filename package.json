@@ -1,6 +1,6 @@
 {
   "name": "@dylanjs/cli",
-  "version": "0.1.1",
+  "version": "1.0.1",
   "description": "DylanJS's 的命令行工具",
   "author": "Dylan <my466879168@gmail.com> (https://github.com/mengyang94982/)",
   "license": "MIT",
@@ -25,7 +25,7 @@
     "cleanup": "dy cleanup",
     "cm": "git add . && dy git-commit",
     "lint": "eslint . --fix",
-    "publish": "npm publish --access public",
+    "publish-pkg": "npm publish --access public",
     "release": "dy release && pnpm build && pnpm publish-pkg",
     "build": "unbuild",
     "dev": "unbuild --stub",
@@ -42,7 +42,7 @@
     "rimraf": "^6.0.1"
   },
   "devDependencies": {
-    "@dylanjs/cli": "^0.1.0",
+    "@dylanjs/cli": "^1.0.0",
     "@types/node": "^20.11.26",
     "npm-check-updates": "^17.1.9",
     "typescript": "~5.6.2",
