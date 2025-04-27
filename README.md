@@ -40,15 +40,38 @@ dy git-commit-verify -l=zh-cn
 ### cleanup
 
 ```bash
-dy cleanup
+"cleanup": "dy cleanup"
+
+pnpm run cleanup
 ```
 
 此方法是用来删除指定目录的，默认是删除`node_modules`、`dist`、`pnpm-lock.yaml`目录，使用的是`rimraf`库来删除目录。
 
-### update-pkg
+
+
+
+### ncu
 
 ```bash
-dy update-pkg
+"ncu": "dy ncu"
+
+pnpm run ncu
 ```
 
-此方法是用来更新package.json中的依赖版本的，使用的是`ncu`库来更新依赖版本，使用`-d`参数来指定要更新的依赖版本，使用`-u`参数来更新依赖版本，默认是更新所有依赖版本。
+此方法是用来更新package.json中的依赖版本的，使用的是`npm-check-updates`库来更新依赖版本，使用`-d`参数来指定要更新的依赖版本，使用`-u`参数来更新依赖版本，默认是更新所有依赖版本。
+
+### release
+
+项目进行发布：会做以下的操作:更新版本号、生成 changelog、提交代码等等
+
+```bash
+"release": "dy release"
+
+pnpm run release
+```
+
+### changelog
+
+根据两次 tag 生成 changelog (--total: 根据所有 tag 生成 changelog)
+
+执行release方法会自动执行

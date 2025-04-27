@@ -1,6 +1,6 @@
-import type { CliOption } from "../types";
-import { loadConfig } from "c12";
+import {CliOption} from "@/types";
 import process from "node:process";
+import {loadConfig} from "c12";
 
 const defaultOptions: CliOption = {
   cwd: process.cwd(),
@@ -13,6 +13,7 @@ const defaultOptions: CliOption = {
     "!node_modules/**",
   ],
   ncuCommandArgs: ["--deep", "-u"],
+  changelogOptions: {},
   gitCommitVerifyIgnores: [
     /^((Merge pull request)|(Merge (.*?) into (.*?)|(Merge branch (.*?)))(?:\r?\n)*$)/m,
     /^(Merge tag (.*?))(?:\r?\n)*$/m,
@@ -25,16 +26,13 @@ const defaultOptions: CliOption = {
   ],
 };
 
-export async function loadCliOptions(
-  overrides?: Partial<CliOption>,
-  cwd = process.cwd()
-) {
-  const { config } = await loadConfig<Partial<CliOption>>({
-    name: "dylan",
+export async function loadCliOptions(overrides?: Partial<CliOption>, cwd = process.cwd()) {
+  const {config} = await loadConfig<Partial<CliOption>>({
+    name: 'dylan',
     defaults: defaultOptions,
     overrides,
     cwd,
-    packageJson: true,
-  });
-  return config as CliOption;
+    packageJson: true
+  })
+  return config as CliOption
 }

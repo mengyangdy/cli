@@ -1,6 +1,6 @@
 {
   "name": "@dylanjs/cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "DylanJS's 的命令行工具",
   "author": "Dylan <my466879168@gmail.com> (https://github.com/mengyang94982/)",
   "license": "MIT",
@@ -32,18 +32,29 @@
     "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "keywords": [],
+  "peerDependencies": {
+    "react": "^18.0.0"
+  },
   "dependencies": {
+    "@types/cli-progress": "^3.11.6",
     "bumpp": "^9.4.0",
     "c12": "^1.10.0",
     "cac": "^6.7.14",
+    "cli-progress": "^3.12.0",
+    "consola": "^3.4.2",
+    "convert-gitmoji": "^0.1.5",
+    "dayjs": "^1.11.13",
     "enquirer": "2.4.1",
     "execa": "^8.0.1",
     "kolorist": "^1.8.0",
-    "rimraf": "^6.0.1"
+    "ofetch": "^1.4.1",
+    "rimraf": "^6.0.1",
+    "semver": "^7.7.1"
   },
   "devDependencies": {
     "@dylanjs/cli": "^1.0.0",
-    "@types/node": "^20.11.26",
+    "@types/node": "^20.17.30",
+    "@types/semver": "^7.7.0",
     "npm-check-updates": "^17.1.9",
     "typescript": "~5.6.2",
     "unbuild": "^2.0.0"
