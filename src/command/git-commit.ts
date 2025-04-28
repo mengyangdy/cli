@@ -13,9 +13,24 @@ interface PromptObject {
   description: string
 }
 
+// 添加emoji映射
+const TYPE_EMOJIS: Record<string, string> = {
+  feat: '✨',
+  fix: '🐛',
+  docs: '📝',
+  style: '💄',
+  refactor: '♻️',
+  perf: '⚡',
+  optimize: '🔧',
+  test: '✅',
+  build: '📦',
+  ci: '🤖',
+  chore: '🛠️',
+  revert: '⏪'
+};
+
 export async function gitCommit(lang: Lang = 'en-us') {
-  console.log("🚀 ~ file:git-commit method:gitCommit line:17 -----", 1111)
-  const {gitCommitMessages, gitCommitTypes, gitCommitScopes} = locales[lang];
+  const { gitCommitMessages, gitCommitTypes, gitCommitScopes } = locales[lang];
 
   const typesChoices = gitCommitTypes.map(([value, msg]) => {
     const nameWithSuffix = `${value}:`;
@@ -24,42 +39,44 @@ export async function gitCommit(lang: Lang = 'en-us') {
 
     return {
       name: value,
-      message
+      message,
     };
   });
 
   const scopesChoices = gitCommitScopes.map(([value, msg]) => ({
     name: value,
-    message: `${value.padEnd(30)} (${msg})`
+    message: `${value.padEnd(30)} (${msg})`,
   }));
 
   const result = await prompt<PromptObject>([
     {
-      name: 'types',
-      type: 'select',
+      name: "types",
+      type: "select",
       message: gitCommitMessages.types,
-      choices: typesChoices
+      choices: typesChoices,
     },
     {
-      name: 'scopes',
-      type: 'select',
+      name: "scopes",
+      type: "select",
       message: gitCommitMessages.scopes,
-      choices: scopesChoices
+      choices: scopesChoices,
     },
     {
-      name: 'description',
-      type: 'text',
-      message: gitCommitMessages.description
-    }
+      name: "description",
+      type: "text",
+      message: gitCommitMessages.description,
+    },
   ]);
 
-  const breaking = result.description.startsWith('!') ? '!' : '';
+  const emoji = TYPE_EMOJIS[result.types] || ""; // 获取对应类型的emoji
 
-  const description = result.description.replace(/^!/, '').trim();
+  const breaking = result.description.startsWith("!") ? "!" : "";
 
-  const commitMsg = `${result.types}(${result.scopes})${breaking}: ${description}`;
+  const description = result.description.replace(/^!/, "").trim();
 
-  await execCommand('git', ['commit', '-m', commitMsg], {stdio: 'inherit'});
+  const commitMsg = `${result.types}(${result.scopes})${breaking}: ${emoji} ${description}`;
+
+  await execCommand("git", ["commit", "-m", commitMsg], { stdio: "inherit" });
 }
 
 export async function gitCommitVerify(lang: Lang = 'en-us', ignores: RegExp[] = []) {

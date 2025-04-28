@@ -1,6 +1,6 @@
 {
   "name": "@dylanjs/cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "DylanJS's 的命令行工具",
   "author": "Dylan <my466879168@gmail.com> (https://github.com/mengyang94982/)",
   "license": "MIT",
@@ -23,21 +23,20 @@
   ],
   "scripts": {
     "cleanup": "dy cleanup",
-    "cm": "git add . && dy git-commit",
+    "cm": "git add . && dy git-commit -l=zh-cn",
+    "ncu": "dy ncu",
     "lint": "eslint . --fix",
     "publish-pkg": "npm publish --access public",
     "release": "dy release && pnpm build && pnpm publish-pkg",
     "build": "unbuild",
     "dev": "unbuild --stub",
-    "typecheck": "tsc --noEmit --skipLibCheck"
+    "typecheck": "tsc --noEmit --skipLibCheck",
+    "prepare": "simple-git-hooks"
   },
   "keywords": [],
-  "peerDependencies": {
-    "react": "^18.0.0"
-  },
   "dependencies": {
     "@types/cli-progress": "^3.11.6",
-    "bumpp": "^9.4.0",
+    "bumpp": "^10.1.0",
     "c12": "^1.10.0",
     "cac": "^6.7.14",
     "cli-progress": "^3.12.0",
@@ -52,11 +51,16 @@
     "semver": "^7.7.1"
   },
   "devDependencies": {
-    "@dylanjs/cli": "^1.0.0",
+    "@dylanjs/cli": "^1.0.3",
     "@types/node": "^20.17.30",
     "@types/semver": "^7.7.0",
     "npm-check-updates": "^17.1.9",
+    "simple-git-hooks": "^2.13.0",
     "typescript": "~5.6.2",
     "unbuild": "^2.0.0"
+  },
+  "simple-git-hooks": {
+    "commit-msg": "pnpm dy git-commit-verify",
+    "pre-commit": "pnpm typecheck"
   }
 }
