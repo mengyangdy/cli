@@ -1,6 +1,6 @@
 {
   "name": "@dylanjs/cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "DylanJS's 的命令行工具",
   "author": "Dylan <my466879168@gmail.com> (https://github.com/mengyang94982/)",
   "license": "MIT",
@@ -51,7 +51,7 @@
     "semver": "^7.7.1"
   },
   "devDependencies": {
-    "@dylanjs/cli": "^1.0.3",
+    "@dylanjs/cli": "^1.0.4",
     "@types/node": "^20.17.30",
     "@types/semver": "^7.7.0",
     "npm-check-updates": "^17.1.9",
