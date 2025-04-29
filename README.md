@@ -8,6 +8,20 @@
 npm install -g @dylanjs/cli
 ```
 
+> 在使用之前还需要安装两个包：`pnpm install -D lint-staged simple-git-hooks`
+> 在scripts中添加一个命令`"prepare": "simple-git-hooks"`
+> 在`package.json`中添加两个对象：
+
+```json
+"simple-git-hooks": {
+    "commit-msg": "pnpm dy git-commit-verify",
+    "pre-commit": "pnpm typecheck && pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+```
+
 ## 使用
 
 ### git-commit
