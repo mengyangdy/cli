@@ -1,6 +1,6 @@
 {
   "name": "@dylanjs/cli",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "DylanJS's 的命令行工具",
   "author": "Dylan <my466879168@gmail.com> (https://github.com/mengyang94982/)",
   "license": "MIT",
