@@ -6,7 +6,7 @@ export const locales = {
   'zh-cn': {
     gitCommitMessages: {
       types: '请选择提交类型',
-      scopes: '请选择提交范围',
+      scopes: '请输入提交范围',
       description: `请输入描述信息（${yellow('!')}开头表示破坏性改动`
     },
     gitCommitTypes: [
@@ -19,9 +19,14 @@ export const locales = {
       ['optimize', '优化代码质量的代码更改'],
       ['test', '添加缺失的测试或更正现有测试'],
       ['build', '影响构建系统或外部依赖项的更改'],
-      ['ci', '对 CI 配置文件和脚本的更改'],
+       ['ci', '对 CI 配置文件和脚本的更改'],
       ['chore', '没有修改src或测试文件的其他变更'],
-      ['revert', '还原先前的提交']
+      ['revert', '还原先前的提交'],
+      ['init', '项目初始化'],
+      ['types', '类型声明修改'],
+      ['release', '发布新版本'],
+      ['deps', '依赖项修改'],
+      ['security', '修复安全漏洞']
     ] as [string, string][],
     gitCommitScopes: [
       ['projects', '项目'],
@@ -42,7 +47,7 @@ export const locales = {
   'en-us': {
     gitCommitMessages: {
       types: 'Please select a type',
-      scopes: 'Please select a scope',
+      scopes: 'Please enter a scope',
       description: `Please enter a description (add prefix ${yellow('!')} to indicate breaking change)`
     },
     gitCommitTypes: [
@@ -55,9 +60,14 @@ export const locales = {
       ['optimize', 'A code change that optimizes code quality'],
       ['test', 'Adding missing tests or correcting existing tests'],
       ['build', 'Changes that affect the build system or external dependencies'],
-      ['ci', 'Changes to our CI configuration files and scripts'],
+       ['ci', 'Changes to our CI configuration files and scripts'],
       ['chore', "Other changes that don't modify src or test files"],
-      ['revert', 'Reverts a previous commit']
+      ['revert', 'Reverts a previous commit'],
+      ['init', 'Initial commit'],
+      ['types', 'Type definition changes'],
+      ['release', 'Release new version'],
+      ['deps', 'Dependency changes'],
+      ['security', 'Security fixes']
     ] as [string, string][],
     gitCommitScopes: [
       ['projects', 'project'],

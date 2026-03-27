@@ -26,11 +26,16 @@ const TYPE_EMOJIS: Record<string, string> = {
   build: '📦',
   ci: '🤖',
   chore: '🛠️',
-  revert: '⏪'
+  revert: '⏪',
+  init: '🎉',
+  types: '🏷️',
+  release: '🚀',
+  deps: '⬆️',
+  security: '🔒️'
 };
 
 export async function gitCommit(lang: Lang = 'en-us') {
-  const { gitCommitMessages, gitCommitTypes, gitCommitScopes } = locales[lang];
+  const { gitCommitMessages, gitCommitTypes } = locales[lang];
 
   const typesChoices = gitCommitTypes.map(([value, msg]) => {
     const nameWithSuffix = `${value}:`;
@@ -43,10 +48,7 @@ export async function gitCommit(lang: Lang = 'en-us') {
     };
   });
 
-  const scopesChoices = gitCommitScopes.map(([value, msg]) => ({
-    name: value,
-    message: `${value.padEnd(30)} (${msg})`,
-  }));
+
 
   const result = await prompt<PromptObject>([
     {
@@ -57,9 +59,8 @@ export async function gitCommit(lang: Lang = 'en-us') {
     },
     {
       name: "scopes",
-      type: "select",
+      type: "text",
       message: gitCommitMessages.scopes,
-      choices: scopesChoices,
     },
     {
       name: "description",
@@ -68,13 +69,19 @@ export async function gitCommit(lang: Lang = 'en-us') {
     },
   ]);
 
-  const emoji = TYPE_EMOJIS[result.types] || ""; // 获取对应类型的emoji
+  const isBreaking = result.description.startsWith("!");
 
-  const breaking = result.description.startsWith("!") ? "!" : "";
+  const emoji = isBreaking ? '💥' : (TYPE_EMOJIS[result.types] || ""); // 如果是破坏性改动，显示爆炸图标
+
+  const emojiStr = emoji ? `${emoji} ` : "";
+
+  const breaking = isBreaking ? "!" : "";
 
   const description = result.description.replace(/^!/, "").trim();
 
-  const commitMsg = `${result.types}(${result.scopes})${breaking}: ${emoji} ${description}`;
+  const scope = result.scopes ? `(${result.scopes})` : "";
+
+  const commitMsg = `${emojiStr}${result.types}${scope}${breaking}: ${description}`;
 
   await execCommand("git", ["commit", "-m", commitMsg], { stdio: "inherit" });
 }
@@ -88,7 +95,7 @@ export async function gitCommitVerify(lang: Lang = 'en-us', ignores: RegExp[] = 
 
   if (ignores.some(regExp => regExp.test(commitMsg))) return;
 
-  const REG_EXP = /(?<type>[a-z]+)(?:\((?<scope>.+)\))?(?<breaking>!)?: (?<description>.+)/i;
+  const REG_EXP = /^(?:.+ )?(?<type>[a-z]+)(?:\((?<scope>.+)\))?(?<breaking>!)?: (?<description>.+)/i;
 
   if (!REG_EXP.test(commitMsg)) {
     const errorMsg = locales[lang].gitCommitVerify;
